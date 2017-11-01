@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -38,8 +39,17 @@ public class Practice02ClipPathView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        canvas.save();
+        Path path = new Path();
+        RectF rectF = new RectF();
+        rectF.left=point1.x+100;
+        rectF.top=point1.y+200;
+        rectF.right=bitmap.getWidth();
+        rectF.bottom=bitmap.getHeight();
+        path.addArc(rectF,0,90);
+        canvas.clipPath(path);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
     }
 }
